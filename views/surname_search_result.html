@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Search Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item">Map View</div>
+                <div class="nav-item active">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+                <h3>Search Records</h3>
+                <div class="input-group">
+                    <label>Enter Surname</label>
+                    <input type="text" class="input-glass" value="Kowalski">
+                </div>
+                <button class="btn btn-primary" style="margin-top: 8px; width: 100%;">Search</button>
+
+                <div class="tabs" style="margin-top: 32px;">
+                    <div class="tab active">Located Graves</div>
+                    <div class="tab">Unlocated Graves</div>
+                </div>
+
+                <div class="list-container">
+                    <div class="list-item active">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Jan Kowalski</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Section 45 &bull; Row 2 &bull; Plot 3</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Anna Kowalska</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Section 12 &bull; Row 4 &bull; Plot 11</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Józef Kowalski</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Section 78 &bull; Row 1 &bull; Plot 7</div>
+                    </div>
+                </div>
+
+                <div class="spacer"></div>
+                <div class="support-btn-wrapper">
+                    <button class="btn btn-secondary btn-icon">?</button>
+                </div>
+            </aside>
+            <main class="map-container">
+                <div class="map-grid-wrapper">
+                    <div class="map-grid" id="grid"></div>
+                </div>
+                <script>
+                    const grid = document.getElementById('grid');
+                    const highlighted = [45, 12, 78];
+                    for (let i = 1; i <= 100; i++) {
+                        const s = document.createElement('div');
+                        s.className = 'map-section';
+                        s.style.position = 'relative';
+                        s.textContent = 'S' + i;
+                        if (highlighted.includes(i)) {
+                            const dot = document.createElement('div');
+                            dot.style.cssText = 'width:10px;height:10px;border-radius:50%;background:var(--secondary);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px var(--secondary);';
+                            s.appendChild(dot);
+                        }
+                        grid.appendChild(s);
+                    }
+                </script>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

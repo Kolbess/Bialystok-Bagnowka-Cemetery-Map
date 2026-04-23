@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Grave Detail</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: var(--surface);
+        }
+    </style>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <!-- Background mock -->
+    <div class="app-shell" style="filter: blur(12px); pointer-events: none; opacity: 0.8;">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item">Map View</div>
+                <div class="nav-item">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+            </aside>
+            <main class="map-container">
+                <div class="map-grid">
+                    <div class="map-section" style="width: 100%; height: 100%;"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- The actual Modal Overlay sitting on top -->
+    <div class="modal-overlay" style="z-index: 999; backdrop-filter: none; background: rgba(0, 36, 69, 0.65);">
+        <div class="glass-panel grave-detail-modal">
+            <div class="gallery">
+                <div class="gallery-arrow">&larr;</div>
+                <div
+                    style="color: var(--surface-container-lowest); font-family: var(--font-display); font-size: 1.25rem;">
+                    [ 📸 Photo 1 of 5 ]</div>
+                <div class="gallery-arrow">&rarr;</div>
+            </div>
+            <div class="detail-content">
+                <h1 style="margin-bottom: 8px;">John Doe</h1>
+                <div class="detail-meta">Section 45 &bull; Row 12 &bull; Plot 3</div>
+
+                <div class="description">
+                    <p><strong>Born:</strong> 1890 &mdash; <strong>Died:</strong> 1945</p>
+                    <p style="margin-top: 16px;">
+                        This grave is an excellent example of pre-war craftsmanship. It features a large stone cross
+                        with intricate floral carvings. The inscription is heavily weathered but partially legible.
+                        Records indicate the plot was maintained until the late 1960s before falling into disrepair.
+                    </p>
+                    <p>
+                        Current restoration status: <em>Requires urgent foundation stabilization.</em>
+                    </p>
+                </div>
+
+                <button class="btn btn-primary" style="align-self: flex-start; padding: 16px 32px; font-weight: 600;">
+                    Support Our Restoration Work
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

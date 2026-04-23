@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Legend Off</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item active">Map View</div>
+                <div class="nav-item">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+                <h3>Filters</h3>
+                <div class="input-group">
+                    <label>Section</label>
+                    <input type="text" class="input-glass" placeholder="e.g. A, B, C">
+                </div>
+                <div class="input-group">
+                    <label>Row</label>
+                    <input type="text" class="input-glass" placeholder="e.g. 1, 2, 3">
+                </div>
+                <div class="input-group">
+                    <label>Surname</label>
+                    <input type="text" class="input-glass" placeholder="e.g. Smith">
+                </div>
+                <button class="btn btn-primary" style="margin-top: 16px;">Search</button>
+                <div class="spacer"></div>
+                <div class="support-btn-wrapper">
+                    <button class="btn btn-secondary btn-icon">?</button>
+                </div>
+            </aside>
+            <main class="map-container" style="position: relative;">
+                <div class="map-grid-wrapper">
+                    <div class="map-grid" id="grid"></div>
+                </div>
+                <script>
+                    const grid = document.getElementById('grid');
+                    for (let i = 1; i <= 100; i++) {
+                        const s = document.createElement('div');
+                        s.className = 'map-section';
+                        s.textContent = 'S' + i;
+                        grid.appendChild(s);
+                    }
+                </script>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

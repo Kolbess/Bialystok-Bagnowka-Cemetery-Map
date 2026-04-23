@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Grave Click</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .map-section-zoomed {
+            background-color: var(--surface-container-low);
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-label {
+            font-size: 0.6rem;
+            color: var(--primary-container);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            opacity: 0.6;
+        }
+
+        .graves-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px 8px;
+            width: 100%;
+            flex: 1;
+            padding: 8px;
+        }
+
+        .grave-plot {
+            width: 16px;
+            height: 24px;
+            background: rgba(0, 36, 69, 0.15);
+            border-radius: 3px 3px 1px 1px;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.15s;
+            justify-self: center;
+            align-self: center;
+        }
+
+        .grave-plot.selected {
+            background: var(--secondary);
+            box-shadow: 0 0 0 2px var(--secondary), 0 0 8px var(--secondary);
+        }
+
+        .map-grid-zoom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 8px;
+            width: 640px;
+            height: 640px;
+            border-bottom: 12px solid var(--primary-container);
+            padding-bottom: 12px;
+        }
+
+        /* Side popup panel */
+        .side-popup {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 340px;
+            height: 100%;
+            background: var(--surface-container-lowest);
+            box-shadow: -8px 0 32px rgba(0, 36, 69, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 28px;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .popup-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .close-btn {
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--primary-container);
+            opacity: 0.5;
+            line-height: 1;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .popup-meta {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+
+        .popup-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--outline-variant);
+            font-size: 0.875rem;
+        }
+
+        .popup-detail-row span:first-child {
+            opacity: 0.6;
+        }
+    </style>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item active">Map View</div>
+                <div class="nav-item">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+                <h3>Filters</h3>
+                <div class="input-group">
+                    <label>Section</label>
+                    <input type="text" class="input-glass" placeholder="e.g. A, B, C">
+                </div>
+                <div class="input-group">
+                    <label>Row</label>
+                    <input type="text" class="input-glass" placeholder="e.g. 1, 2, 3">
+                </div>
+                <div class="input-group">
+                    <label>Surname</label>
+                    <input type="text" class="input-glass" placeholder="e.g. Smith">
+                </div>
+                <button class="btn btn-primary" style="margin-top:16px;">Search</button>
+                <div class="spacer"></div>
+                <div class="support-btn-wrapper">
+                    <button class="btn btn-secondary btn-icon">?</button>
+                </div>
+            </aside>
+            <main class="map-container" style="position: relative;">
+                <!-- Map remains fully visible -->
+                <div class="map-grid-wrapper">
+                    <div class="map-grid-zoom" id="grid"></div>
+                </div>
+
+                <!-- Popup slides in from the right -->
+                <div class="side-popup">
+                    <div class="popup-header">
+                        <h2>Jan Kowalski</h2>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <div class="popup-meta">Located Grave</div>
+                    <div class="popup-detail-row"><span>Section</span><span>45</span></div>
+                    <div class="popup-detail-row"><span>Row</span><span>2</span></div>
+                    <div class="popup-detail-row"><span>Plot</span><span>3</span></div>
+                    <div class="popup-detail-row"><span>Year</span><span>1901 – 1967</span></div>
+                    <div class="spacer"></div>
+                    <button class="btn btn-primary" style="width:100%; padding: 14px;">View Full Profile</button>
+                </div>
+
+                <script>
+                    const grid = document.getElementById('grid');
+                    const sections = [44, 45, 54, 55];
+                    const rotations = [5, -5, 0, -15, 10, -3, 8, -10, 2, -7];
+                    sections.forEach((num, si) => {
+                        const s = document.createElement('div');
+                        s.className = 'map-section-zoomed';
+                        const label = document.createElement('div');
+                        label.className = 'section-label';
+                        label.textContent = 'Section ' + num;
+                        s.appendChild(label);
+                        const gGrid = document.createElement('div');
+                        gGrid.className = 'graves-grid';
+                        for (let j = 0; j < 20; j++) {
+                            const g = document.createElement('div');
+                            g.className = 'grave-plot' + (si === 1 && j === 7 ? ' selected' : '');
+                            g.style.transform = `rotate(${rotations[j % rotations.length]}deg)`;
+                            gGrid.appendChild(g);
+                        }
+                        s.appendChild(gGrid);
+                        grid.appendChild(s);
+                    });
+                </script>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

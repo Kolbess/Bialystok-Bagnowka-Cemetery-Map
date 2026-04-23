@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Support</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item active">Map View</div>
+                <div class="nav-item">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+                <h3>Filters</h3>
+                <div class="input-group">
+                    <label>Section</label>
+                    <input type="text" class="input-glass" placeholder="e.g. A, B, C">
+                </div>
+                <div class="input-group">
+                    <label>Row</label>
+                    <input type="text" class="input-glass" placeholder="e.g. 1, 2, 3">
+                </div>
+                <div class="input-group">
+                    <label>Surname</label>
+                    <input type="text" class="input-glass" placeholder="e.g. Smith">
+                </div>
+                <button class="btn btn-primary" style="margin-top: 16px;">Search</button>
+                <div class="spacer"></div>
+                <div class="support-btn-wrapper">
+                    <button class="btn btn-secondary btn-icon" style="background: var(--secondary); color: var(--on-secondary-container); border-color: var(--secondary);">?</button>
+                </div>
+            </aside>
+            <main class="map-container" style="position: relative;">
+                <!-- Background map grid (dimmed behind overlay) -->
+                <div class="map-grid-wrapper">
+                    <div class="map-grid" id="grid"></div>
+                </div>
+                <script>
+                    const grid = document.getElementById('grid');
+                    for (let i = 1; i <= 100; i++) {
+                        const s = document.createElement('div');
+                        s.className = 'map-section';
+                        s.textContent = 'S' + i;
+                        grid.appendChild(s);
+                    }
+                </script>
+
+                <!-- Support Panel Overlay -->
+                <div class="support-panel-overlay">
+                    <div class="glass-panel support-panel">
+                        <div class="support-panel-header">
+                            <h2>Help & Support</h2>
+                            <button class="close-btn">&times;</button>
+                        </div>
+
+                        <!-- FAQ Section -->
+                        <div class="faq-item open">
+                            <div class="faq-question">
+                                <span>How do I find a specific grave?</span>
+                                <span class="faq-chevron">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Use the sidebar filters to search by Section, Row, or Surname. You can also
+                                use the Surname Search tab in the top navigation to search our full database
+                                of burial records. Click on any section in the map to zoom in and browse individual graves.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What do the map colors mean?</span>
+                                <span class="faq-chevron">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Gold highlights indicate search results or selected graves. The map sections
+                                are labeled with their section numbers. Click on the Legend tab in the navigation
+                                bar for a full explanation of all map symbols and restoration status indicators.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I support the restoration?</span>
+                                <span class="faq-chevron">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                The Bialystok Cemetery Restoration Foundation (BCRF) accepts donations to fund
+                                ongoing preservation work. When viewing a specific grave's detail page, you'll
+                                find a "Support Our Restoration Work" button. You can also visit our main website
+                                for more information about volunteer opportunities and sponsorship programs.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What data is available for each grave?</span>
+                                <span class="faq-chevron">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Each located grave includes the person's name, section, row, plot number, and
+                                years of birth and death where known. Many graves also have photographs and
+                                restoration status notes. Unlocated graves have name records from historical
+                                documents but have not yet been physically mapped.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What is the difference between Located and Unlocated graves?</span>
+                                <span class="faq-chevron">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                Located graves have been physically identified and mapped to a specific section,
+                                row, and plot in the cemetery. Unlocated graves are known from historical burial
+                                records but their exact physical position in the cemetery has not yet been
+                                confirmed through field surveys.
+                            </div>
+                        </div>
+
+                        <!-- Chat Section -->
+                        <div class="chat-section">
+                            <h3>Still need help?</h3>
+                            <p>Send us a message and our team will get back to you within 24 hours.</p>
+                            <div class="chat-input-group">
+                                <input type="text" class="input-glass" placeholder="Type your question...">
+                                <button class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

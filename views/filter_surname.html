@@ -48,11 +48,14 @@
                 <script>
                     const grid = document.getElementById('grid');
                     const highlighted = [23, 56, 89];
-                    for (let i = 1; i <= 100; i++) {
+                    for (let i = 0; i < 100; i++) {
+                        const r = Math.floor(i / 10);
+                        const c = i % 10;
+                        const sectionNum = (9 - r) * 10 + (c + 1);
                         const s = document.createElement('div');
                         s.className = 'map-section';
-                        s.textContent = 'S' + i;
-                        if (highlighted.includes(i)) {
+                        s.textContent = 'S' + sectionNum;
+                        if (highlighted.includes(sectionNum)) {
                             const dot = document.createElement('div');
                             dot.style.cssText = 'width:10px;height:10px;border-radius:50%;background:var(--secondary);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px var(--secondary);';
                             s.style.position = 'relative';

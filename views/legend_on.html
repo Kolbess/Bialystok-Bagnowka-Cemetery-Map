@@ -72,10 +72,16 @@
                 </div>
                 <script>
                     const grid = document.getElementById('grid');
-                    for (let i = 1; i <= 100; i++) {
+                    for (let i = 0; i < 100; i++) {
+                        const r = Math.floor(i / 10);
+                        const c = i % 10;
+                        const sectionNum = (9 - r) * 10 + (c + 1);
                         const s = document.createElement('div');
                         s.className = 'map-section';
-                        s.textContent = 'S' + i;
+                        s.textContent = 'S' + sectionNum;
+                        if ([10, 11, 20, 21].includes(sectionNum)) s.classList.add('status-documented');
+                        if ([15, 16, 25, 26].includes(sectionNum)) s.classList.add('status-restored');
+                        if ([5, 6, 15, 16].includes(sectionNum)) s.classList.add('status-inprogress');
                         grid.appendChild(s);
                     }
                 </script>

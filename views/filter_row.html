@@ -47,11 +47,14 @@
                 </div>
                 <script>
                     const grid = document.getElementById('grid');
-                    const highlighted = [45, 55];
-                    for (let i = 1; i <= 100; i++) {
+                    const highlighted = [35, 36, 37, 45, 46, 55, 56, 63, 72];
+                    for (let i = 0; i < 100; i++) {
+                        const r = Math.floor(i / 10);
+                        const c = i % 10;
+                        const sectionNum = (9 - r) * 10 + (c + 1);
                         const s = document.createElement('div');
-                        s.className = 'map-section' + (highlighted.includes(i) ? ' highlight-row' : '');
-                        s.textContent = 'S' + i;
+                        s.className = 'map-section' + (highlighted.includes(sectionNum) ? ' highlight-row' : '');
+                        s.textContent = 'S' + sectionNum;
                         grid.appendChild(s);
                     }
                 </script>

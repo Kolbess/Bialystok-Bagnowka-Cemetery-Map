@@ -47,12 +47,16 @@
                 </div>
                 <script>
                     const grid = document.getElementById('grid');
-                    for (let i = 1; i <= 100; i++) {
+                    const highlighted = [45, 46];
+                    for (let i = 0; i < 100; i++) {
+                        const r = Math.floor(i / 10);
+                        const c = i % 10;
+                        const sectionNum = (9 - r) * 10 + (c + 1);
                         const s = document.createElement('div');
-                        s.className = 'map-section' + (i === 45 ? ' highlight-section' : '');
+                        s.className = 'map-section' + (highlighted.includes(sectionNum) ? ' highlight-multi' : '');
                         s.style.position = 'relative';
-                        s.textContent = 'S' + i;
-                        if (i === 45) {
+                        s.textContent = 'S' + sectionNum;
+                        if (highlighted.includes(sectionNum)) {
                             // row stripe overlay
                             const row = document.createElement('div');
                             row.style.cssText = 'position:absolute;left:0;right:0;top:45%;height:12%;background:rgba(119,90,25,0.5);';

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const currentPath = window.location.pathname.split('/').pop() || 'home.html';
-    
+
     // -------------------------
     // Top Navigation
     // -------------------------
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Normal map filtering logic
             const inputs = document.querySelectorAll('.input-glass');
             let secVal = '', rowVal = '', surVal = '';
-            
+
             inputs.forEach(input => {
                 const prev = input.previousElementSibling;
                 if (!prev) return;
@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isZoomedIn = zoomedInPages.includes(currentPath);
     const isZoomedOut = zoomedOutPages.includes(currentPath);
     const isBase = basePages.includes(currentPath);
+    const isRowFiltered = currentPath.includes('filter_row.html');
 
     if (mapContainer && (isZoomedIn || isZoomedOut || isBase)) {
         mapContainer.style.position = 'relative';
@@ -178,7 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isZoomedOut) minusBtn.classList.add('zoom-btn-disabled');
 
         plusBtn.addEventListener('click', () => {
-            if (isBase) {
+            if (isRowFiltered) {
+                window.location.href = 'row_filter_zoom_in.html';
+            } else if (isBase) {
                 window.location.href = 'zoom_in.html';
             } else if (isZoomedOut) {
                 window.location.href = currentPath.includes('row') ? 'filter_row.html' : 'home.html';
@@ -186,7 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         minusBtn.addEventListener('click', () => {
-            if (isBase) {
+            if (isRowFiltered) {
+                window.location.href = 'row_filter_zoom_out.html';
+            } else if (isBase) {
                 window.location.href = 'zoom_out.html';
             } else if (isZoomedIn) {
                 if (currentPath.includes('row')) {

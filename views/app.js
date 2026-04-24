@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPath.startsWith('surname_search')) {
                 window.location.href = 'surname_search_result.html';
                 return;
+            } else if (currentPath.startsWith('unlocated_graves')) {
+                window.location.href = 'unlocated_graves.html';
+                return;
             }
 
             // Normal map filtering logic
@@ -70,14 +73,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
+            if (tab.classList.contains('active')) return;
+
             const text = tab.textContent.trim().toLowerCase();
+            const isBase = currentPath.includes('base');
+
             if (text === 'located graves') {
-                window.location.href = 'surname_search_result.html';
+                window.location.href = isBase ? 'surname_search_base.html' : 'surname_search_result.html';
             } else if (text === 'unlocated graves') {
-                window.location.href = 'unlocated_graves.html';
+                window.location.href = isBase ? 'unlocated_graves_base.html' : 'unlocated_graves.html';
             }
         });
     });
+
+    // -------------------------
+    // Clear Search Navigation
+    // -------------------------
+    const clearBtns = document.querySelectorAll('.clear-search-btn');
+    clearBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isUnlocated = currentPath.includes('unlocated');
+            window.location.href = isUnlocated ? 'unlocated_graves_base.html' : 'surname_search_base.html';
+        });
+    });
+
+    // -------------------------
+    // List Item Navigation
+    // -------------------------
+    const listItems = document.querySelectorAll('.list-item');
+    listItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (currentPath === 'surname_search_result.html') {
+                window.location.href = 'grave_detail.html';
+            }
+        });
+    });
+
+    // -------------------------
+    // Gallery Navigation
+    // -------------------------
+    const prevBtn = document.getElementById('prev-photo');
+    const nextBtn = document.getElementById('next-photo');
+    const galleryImage = document.getElementById('gallery-image');
+    const photoCounter = document.getElementById('photo-counter');
+
+    if (prevBtn && nextBtn && galleryImage && photoCounter) {
+        const photos = ['../photo1.jpg', '../photo2.jpg', '../photo3.jpg'];
+        let currentPhotoIndex = 0;
+
+        const updateGallery = () => {
+            // Slight fade effect
+            galleryImage.style.opacity = 0.5;
+            setTimeout(() => {
+                galleryImage.src = photos[currentPhotoIndex];
+                photoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${photos.length}`;
+                galleryImage.style.opacity = 1;
+            }, 150);
+        };
+        
+        galleryImage.style.transition = 'opacity 0.2s ease';
+
+        prevBtn.addEventListener('click', () => {
+            currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+            updateGallery();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+            updateGallery();
+        });
+    }
+
+    // -------------------------
+    // Expand Gallery Logic
+    // -------------------------
+    const expandBtn = document.getElementById('expand-gallery-btn');
+    const modal = document.querySelector('.grave-detail-modal');
+
+    if (expandBtn && modal) {
+        expandBtn.addEventListener('click', () => {
+            const isExpanded = modal.classList.toggle('expanded');
+            if (isExpanded) {
+                expandBtn.innerHTML = '&#x25B2;';
+            } else {
+                expandBtn.innerHTML = '&#x25BC;';
+            }
+        });
+    }
 
     // -------------------------
     // Map Interaction (Grids & Zooming)

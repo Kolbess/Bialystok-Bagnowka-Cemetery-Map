@@ -25,7 +25,10 @@
                 <h3>Search Records</h3>
                 <div class="input-group">
                     <label>Enter Surname</label>
-                    <input type="text" class="input-glass" value="Kowalski">
+                    <div style="position: relative;">
+                        <input type="text" class="input-glass" value="Kowalski" style="width: 100%; box-sizing: border-box; padding-right: 36px;">
+                        <span class="clear-search-btn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2rem; opacity: 0.5; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'" title="Clear search">&times;</span>
+                    </div>
                 </div>
                 <button class="btn btn-primary" style="margin-top: 8px; width: 100%;">Search</button>
 

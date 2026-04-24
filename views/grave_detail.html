@@ -40,13 +40,13 @@
     <!-- The actual Modal Overlay sitting on top -->
     <div class="modal-overlay" style="z-index: 999; backdrop-filter: none; background: rgba(0, 36, 69, 0.65);">
         <div class="glass-panel grave-detail-modal">
-            <div class="gallery">
-                <div class="gallery-arrow">&larr;</div>
-                <div
-                    style="color: var(--surface-container-lowest); font-family: var(--font-display); font-size: 1.25rem;">
-                    [ 📸 Photo 1 of 5 ]</div>
-                <div class="gallery-arrow">&rarr;</div>
+            <div class="gallery" style="position: relative; overflow: hidden;">
+                <img id="gallery-image" src="../photo1.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.7);" alt="Grave Photo">
+                <div class="gallery-arrow" id="prev-photo" style="z-index: 1; user-select: none;">&larr;</div>
+                <div id="photo-counter" class="photo-counter">Photo 1 of 3</div>
+                <div class="gallery-arrow" id="next-photo" style="z-index: 1; user-select: none;">&rarr;</div>
             </div>
+            <button id="expand-gallery-btn" class="expand-btn">&#x25BC;</button>
             <div class="detail-content">
                 <h1 style="margin-bottom: 8px;">John Doe</h1>
                 <div class="detail-meta">Section 45 &bull; Row 12 &bull; Plot 3</div>

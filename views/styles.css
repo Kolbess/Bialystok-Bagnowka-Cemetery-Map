@@ -521,7 +521,16 @@ h6 {
 .list-item {
   background-color: var(--surface-container-lowest);
   padding: 16px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
   /* Tonal Layering */
+}
+
+.list-item:hover {
+  background-color: var(--surface-container-lowest);
+  border-color: var(--secondary);
+  box-shadow: 0 4px 12px rgba(0, 36, 69, 0.06);
 }
 
 .list-item:nth-child(even) {
@@ -531,7 +540,8 @@ h6 {
 
 .list-item.active {
   background-color: var(--surface-container-lowest);
-  box-shadow: 0 8px 24px rgba(0, 36, 69, 0.04);
+  box-shadow: 0 8px 24px rgba(0, 36, 69, 0.06);
+  border-color: var(--outline-variant);
 }
 
 .tabs {
@@ -555,13 +565,15 @@ h6 {
 
 /* Grave detail components */
 .gallery {
-  height: 300px;
+  height: 180px;
   background: var(--primary);
   /* Image placeholder */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
+  position: relative;
+  transition: height 0.3s ease;
 }
 
 .gallery-arrow {
@@ -586,6 +598,62 @@ h6 {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  transition: padding 0.3s ease;
+}
+
+.grave-detail-modal.expanded .gallery {
+  height: 420px;
+}
+
+.grave-detail-modal.expanded .detail-content {
+  padding: 16px 32px;
+}
+
+.photo-counter {
+  color: var(--surface-container-lowest);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.grave-detail-modal.expanded .photo-counter {
+  top: auto;
+  bottom: 16px;
+  transform: translate(-50%, 0);
+}
+
+.expand-btn {
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  margin-top: -16px;
+  margin-bottom: -16px;
+  border-radius: 50%;
+  border: 1px solid var(--outline-variant);
+  background: var(--surface-container-lowest);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-container);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  z-index: 10;
+  position: relative;
+}
+
+.expand-btn:hover {
+  background: var(--surface-container-low);
+  transform: scale(1.1);
 }
 
 .detail-meta {

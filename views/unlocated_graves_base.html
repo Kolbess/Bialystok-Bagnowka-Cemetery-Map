@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cemetery Restoration - Unlocated Graves Base</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="logo" style="display: flex; align-items: center;"><img src="../BCRF-logo.webp" alt="BCRF Logo"
+                    style="height: 40px; margin-right: 16px;">Bialystok Cemetery Map</div>
+            <div class="top-nav">
+                <div class="nav-item">Map View</div>
+                <div class="nav-item active">Surname Search</div>
+                <div class="nav-item">Legend</div>
+            </div>
+        </header>
+        <div class="app-body">
+            <aside class="sidebar">
+                <h3>Search Records</h3>
+                <div class="input-group">
+                    <label>Enter Surname</label>
+                    <input type="text" class="input-glass" placeholder="e.g. Kowalski">
+                </div>
+                <button class="btn btn-primary" style="margin-top: 8px; width: 100%;">Search</button>
+
+                <div class="tabs" style="margin-top: 32px;">
+                    <div class="tab" style="cursor: pointer;">Located Graves</div>
+                    <div class="tab active" style="cursor: default;">Unlocated Graves</div>
+                </div>
+
+                <div class="list-container">
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Mosze Rabinowicz</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Location unknown (Restoration heavily damaged)</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Sura Zylberberg</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Location unknown (Illegible inscription)</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Izaak Lewin</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Location unknown (Fragmented stone)</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Chaja Goldberg</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Location unknown (Restoration heavily damaged)</div>
+                    </div>
+                    <div class="list-item">
+                        <div
+                            style="font-family: var(--font-display); color: var(--primary-container); font-size: 1rem; margin-bottom: 4px;">
+                            Aron Kaplan</div>
+                        <div style="font-size: 0.8rem; opacity: 0.65;">Location unknown (Illegible inscription)</div>
+                    </div>
+                </div>
+
+                <div class="spacer"></div>
+                <div class="support-btn-wrapper">
+                    <button class="btn btn-secondary btn-icon">?</button>
+                </div>
+            </aside>
+            <main class="map-container">
+                <div class="map-grid-wrapper">
+                    <div class="map-grid" id="grid"></div>
+                </div>
+                <script>
+                    const grid = document.getElementById('grid');
+                    for (let i = 0; i < 100; i++) {
+                        const r = Math.floor(i / 10);
+                        const c = i % 10;
+                        const sectionNum = (9 - r) * 10 + (c + 1);
+                        const s = document.createElement('div');
+                        s.className = 'map-section';
+                        s.textContent = 'S' + sectionNum;
+                        grid.appendChild(s);
+                    }
+                </script>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
